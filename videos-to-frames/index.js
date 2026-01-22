@@ -8,7 +8,7 @@ import { directoryFrames, directoryVideos } from '../config.js';
 
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
-const END_VIDEO = 2;
+const END_VIDEO = 1;
 const OUTPUT = directoryFrames;
 const FPS = 1;
 const PREFIX_NUM = 0;
