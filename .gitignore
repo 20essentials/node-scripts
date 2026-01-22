@@ -1,0 +1,89 @@
+# ===============================
+# Local / System
+# ===============================
+desktop.ini
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Video
+# ===============================
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.flv
+*.wmv
+*.mpeg
+*.mpg
+*.3gp
+*.m4v
+
+# ===============================
+# Audio
+# ===============================
+*.mp3
+*.wav
+*.aac
+*.ogg
+*.flac
+*.m4a
+*.wma
+*.opus
+
+# ===============================
+# Images
+# ===============================
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.avif
+*.bmp
+*.tiff
+*.svg
+
+# ===============================
+# Media folders (optional)
+# ===============================
+media/
+videos/
+audios/
+images/
+output/
+
+# ===============================
+# Temporary / Render files
+# ===============================
+*.tmp
+*.log
+*.cache
+
+# =====================================
+# Node.js / Express
+# =====================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# =====================================
+# Environment variables
+# =====================================
+.env
+.env.*
+!.env.example
+
+# =====================================
+# Build / Dist
+# =====================================
+dist/
+build/
+out/
+coverage/
