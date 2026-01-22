@@ -87,3 +87,4 @@ dist/
 build/
 out/
 coverage/
+--global/
