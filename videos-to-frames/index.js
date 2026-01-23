@@ -5,7 +5,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 import { directoryFrames, directoryVideos } from '../config.js';
-
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
 const END_VIDEO = 1;
