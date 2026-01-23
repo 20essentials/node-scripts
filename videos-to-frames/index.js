@@ -10,7 +10,7 @@ const START_VIDEO = 1;
 const END_VIDEO = 1;
 const OUTPUT = directoryFrames;
 const FPS = 1;
-const PREFIX_NUM = GLOBAL_PREFIX_NUM || 74;
+const PREFIX_NUM = GLOBAL_PREFIX_NUM || 0;
 const PREFIX = 'u';
 
 ffmpeg.setFfmpegPath(ffmpegPath);
