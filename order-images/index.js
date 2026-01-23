@@ -1,10 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { directoryFrames } from '../config.js';
+import { directoryFrames, GLOBAL_PREFIX_NUM } from '../config.js';
 
 const DIR = directoryFrames;
-const PREFIX_NUM = 0;
+const PREFIX_NUM = GLOBAL_PREFIX_NUM || 0;
 const PREFIX_LETTER = 'u';
 const EXTENSION = 'avif';
 const QUALITY = 90;

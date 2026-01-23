@@ -4,13 +4,13 @@ import ffprobePath from 'ffprobe-static';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { directoryFrames, directoryVideos } from '../config.js';
+import { directoryFrames, directoryVideos, GLOBAL_PREFIX_NUM } from '../config.js';
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
 const END_VIDEO = 1;
 const OUTPUT = directoryFrames;
 const FPS = 1;
-const PREFIX_NUM = 0;
+const PREFIX_NUM = GLOBAL_PREFIX_NUM || 74;
 const PREFIX = 'u';
 
 ffmpeg.setFfmpegPath(ffmpegPath);
