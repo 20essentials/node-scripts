@@ -53,6 +53,7 @@ videos/
 audios/
 images/
 output/
+localConfig.js
 
 # ===============================
 # Temporary / Render files
