@@ -7,11 +7,11 @@ import sharp from 'sharp';
 import { directoryFrames, directoryVideos, GLOBAL_PREFIX_IMAGES_NUM } from '../config.js';
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
-const END_VIDEO = 7;
+const END_VIDEO = 3;
 const OUTPUT = directoryFrames;
 const FPS = 1;
 const PREFIX_NUM = GLOBAL_PREFIX_IMAGES_NUM || 0;
-const PREFIX = 'u';
+const PREFIX = 's';
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);

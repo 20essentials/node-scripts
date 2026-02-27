@@ -1,7 +1,6 @@
 import path from 'path';
 
 const globalPath = subpath => path.resolve(process.cwd(), `--global/${subpath}`);
-
 export const directoryFrames = globalPath('frames');
 export const directoryNewFrames = globalPath('new-frames');
 export const directoryVideos = globalPath('videos');
@@ -11,4 +10,4 @@ export const directoryOldAudios= globalPath('old-audios');
 export const directoryNewAudios= globalPath('new-audios');
 
 /* 0 = To reset/rewrite it globally */
-export const GLOBAL_PREFIX_IMAGES_NUM = 32;
+export const GLOBAL_PREFIX_IMAGES_NUM = 0;
