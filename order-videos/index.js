@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { directoryVideos } from '../config.js';
+import { directoryVideos, directoryNewVideosOutput } from '../config.js';
 
-const DIR = directoryVideos;
+// const DIR = directoryVideos;
+const DIR = directoryNewVideosOutput;
 const PREFIX_NUM = 0;
 const PREFIX_LETTER = 'v';
 const EXTENSION = 'mp4';
