@@ -4,13 +4,12 @@ import ffprobePath from 'ffprobe-static';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { directoryVideos, directoryNewVideosOutput } from '../config.js';
+
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
 const END_VIDEO = 1;
 const EXT_VIDEO = 'mp4';
 const OUTPUT = directoryNewVideosOutput;
-const OFFSET = 0;
-const HALL = 33;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);
@@ -28,14 +27,9 @@ const VIDEOS = arrayOfVideos({
   ext: EXT_VIDEO
 });
 
-const durationOf = src =>
-  new Promise((res, rej) =>
-    ffmpeg.ffprobe(src, (e, d) => (e ? rej(e) : res(d.format.duration)))
-  );
-
-const cut = (src, start, length, out) =>
+const removeAudio = (src, out) =>
   new Promise((res, rej) => {
-    const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+    const frames = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'];
     let f = 0;
     const t0 = Date.now();
 
@@ -46,8 +40,8 @@ const cut = (src, start, length, out) =>
     }, 100);
 
     ffmpeg(src)
-      .setStartTime(start)
-      .setDuration(length)
+      .noAudio()
+      .outputOptions('-c:v copy')
       .output(out)
       .on('end', () => {
         clearInterval(loader);
@@ -61,31 +55,22 @@ const cut = (src, start, length, out) =>
       .run();
   });
 
-const splitVideos = async (videos, hall, offset = 0) => {
+const processVideos = async videos => {
   await fs.mkdir(OUTPUT, { recursive: true });
-  let globalIndex = offset;
-  const allOutputs = [];
+  const outputs = [];
 
   for (const video of videos) {
-    const total = await durationOf(video);
-    const parts = Math.ceil(total / hall);
-
-    for (let i = 0; i < parts; i++) {
-      const start = i * hall;
-      const len = Math.min(hall, total - start);
-      const outFile = path.join(OUTPUT, `v${globalIndex + 1}.mp4`);
-      await cut(video, start, len, outFile);
-      allOutputs.push(outFile);
-      globalIndex++;
-    }
+    const outFile = path.join(OUTPUT, path.basename(video));
+    await removeAudio(video, outFile);
+    outputs.push(outFile);
   }
 
-  return allOutputs;
+  return outputs;
 };
 
 try {
-  const result = await splitVideos(VIDEOS, HALL, OFFSET);
-  console.log('Todos los fragmentos:', result);
+  const result = await processVideos(VIDEOS);
+  console.log('Procesados:', result);
 } catch (e) {
   console.error('Error:', e.message || e);
   process.exit(1);

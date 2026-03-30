@@ -4,13 +4,29 @@ import ffprobePath from 'ffprobe-static';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { directoryVideos, directoryNewVideosOutput } from '../config.js';
+
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
 const END_VIDEO = 1;
 const EXT_VIDEO = 'mp4';
 const OUTPUT = directoryNewVideosOutput;
-const OFFSET = 0;
-const HALL = 33;
+
+const TYPE = {
+  H265_FAST: {
+    codec: 'libx265',
+    options: ['-crf 28', '-preset fast']
+  },
+  H264_ULTRAFAST: {
+    codec: 'libx264',
+    options: ['-crf 23', '-preset ultrafast']
+  },
+  AV1_CPU: {
+    codec: 'libaom-av1',
+    options: ['-crf 34', '-b:v 0', '-cpu-used 8'] // lento, solo test
+  }
+};
+
+const CURRENT_TYPE = TYPE.H265_FAST;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);
@@ -22,20 +38,11 @@ const arrayOfVideos = ({ start, end, ext = 'mp4' }) => {
   );
 };
 
-const VIDEOS = arrayOfVideos({
-  start: START_VIDEO,
-  end: END_VIDEO,
-  ext: EXT_VIDEO
-});
+const VIDEOS = arrayOfVideos({ start: START_VIDEO, end: END_VIDEO, ext: EXT_VIDEO });
 
-const durationOf = src =>
-  new Promise((res, rej) =>
-    ffmpeg.ffprobe(src, (e, d) => (e ? rej(e) : res(d.format.duration)))
-  );
-
-const cut = (src, start, length, out) =>
+const compress = (src, out, type) =>
   new Promise((res, rej) => {
-    const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+    const frames = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'];
     let f = 0;
     const t0 = Date.now();
 
@@ -46,8 +53,9 @@ const cut = (src, start, length, out) =>
     }, 100);
 
     ffmpeg(src)
-      .setStartTime(start)
-      .setDuration(length)
+      .videoCodec(type.codec)
+      .outputOptions(type.options)
+      .noAudio()
       .output(out)
       .on('end', () => {
         clearInterval(loader);
@@ -61,31 +69,25 @@ const cut = (src, start, length, out) =>
       .run();
   });
 
-const splitVideos = async (videos, hall, offset = 0) => {
+const processVideos = async videos => {
   await fs.mkdir(OUTPUT, { recursive: true });
-  let globalIndex = offset;
-  const allOutputs = [];
+  const outputs = [];
+
+  console.log('Codec usado (CPU):', CURRENT_TYPE.codec);
 
   for (const video of videos) {
-    const total = await durationOf(video);
-    const parts = Math.ceil(total / hall);
-
-    for (let i = 0; i < parts; i++) {
-      const start = i * hall;
-      const len = Math.min(hall, total - start);
-      const outFile = path.join(OUTPUT, `v${globalIndex + 1}.mp4`);
-      await cut(video, start, len, outFile);
-      allOutputs.push(outFile);
-      globalIndex++;
-    }
+    const name = path.parse(video).name;
+    const outFile = path.join(OUTPUT, `${name}_${CURRENT_TYPE.codec}.mp4`);
+    await compress(video, outFile, CURRENT_TYPE);
+    outputs.push(outFile);
   }
 
-  return allOutputs;
+  return outputs;
 };
 
 try {
-  const result = await splitVideos(VIDEOS, HALL, OFFSET);
-  console.log('Todos los fragmentos:', result);
+  const result = await processVideos(VIDEOS);
+  console.log('Procesados:', result);
 } catch (e) {
   console.error('Error:', e.message || e);
   process.exit(1);
