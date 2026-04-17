@@ -3,7 +3,8 @@ import path from 'node:path';
 import { directoryVideos, directoryNewVideosOutput } from '../config.js';
 
 // const DIR = directoryVideos;
-const DIR = directoryVideos;
+// const DIR = directoryVideos;
+const DIR = directoryNewVideosOutput;
 const PREFIX_NUM = 0;
 const PREFIX_LETTER = 'v';
 const EXTENSION = 'mp4';
