@@ -10,4 +10,4 @@ export const directoryOldAudios= globalPath('old-audios');
 export const directoryNewAudios= globalPath('new-audios');
 
 /* 0 = To reset/rewrite it globally */
-export const GLOBAL_PREFIX_IMAGES_NUM = 0;
+export const GLOBAL_PREFIX_IMAGES_NUM = 34;
