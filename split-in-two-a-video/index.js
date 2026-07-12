@@ -13,7 +13,7 @@ const EXT_VIDEO = 'mp4';
 const OUTPUT = directoryNewVideosOutput;
 
 // 👉 segundo donde quieres cortar
-const CUT_SECOND = 3;
+const CUT_SECOND = 60;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);

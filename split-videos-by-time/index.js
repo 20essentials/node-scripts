@@ -6,11 +6,11 @@ import path from 'node:path';
 import { directoryVideos, directoryNewVideosOutput } from '../config.js';
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
-const END_VIDEO = 24;
+const END_VIDEO = 1;
 const EXT_VIDEO = 'mp4';
 const OUTPUT = directoryNewVideosOutput;
-const OFFSET = 0;
-const HALL = 5;
+const OFFSET = 38;
+const HALL = 10;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);

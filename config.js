@@ -8,6 +8,7 @@ export const directoryNewVideos = globalPath('videos/video.mp4');
 export const directoryNewVideosOutput = globalPath('oneVideo');
 export const directoryOldAudios= globalPath('old-audios');
 export const directoryNewAudios= globalPath('new-audios');
+export const directoryJpgFrames = globalPath('jpg-frames');
 
 /* 0 = To reset/rewrite it globally */
 export const GLOBAL_PREFIX_IMAGES_NUM = 0;
