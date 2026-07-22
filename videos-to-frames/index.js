@@ -7,9 +7,9 @@ import sharp from 'sharp';
 import { directoryFrames, directoryVideos, GLOBAL_PREFIX_IMAGES_NUM } from '../config.js';
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
-const END_VIDEO = 3;
+const END_VIDEO = 60;
 const OUTPUT = directoryFrames;
-const FPS = 2;
+const FPS = 3;
 const PREFIX_NUM = GLOBAL_PREFIX_IMAGES_NUM || 0;
 const PREFIX = 'u';
 

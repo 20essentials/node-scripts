@@ -28,6 +28,7 @@ const renameAndConvertFrames = async (dir) => {
     const outPath = path.join(dir, outName);
 
     await sharp(tempFiles[i])
+      // .jpeg({ quality: QUALITY })
       .avif({ quality: QUALITY })
       .toFile(outPath);
 

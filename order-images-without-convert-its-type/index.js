@@ -3,7 +3,7 @@ import path from 'node:path';
 import { directoryFrames, GLOBAL_PREFIX_IMAGES_NUM } from '../config.js';
 
 const DIR = directoryFrames;
-const PREFIX_NUM = 195 || 0;
+const PREFIX_NUM = GLOBAL_PREFIX_IMAGES_NUM ?? 0;
 const PREFIX_LETTER = 'u';
 const EXTENSION = 'avif';
 
