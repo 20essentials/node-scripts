@@ -11,4 +11,4 @@ export const directoryNewAudios= globalPath('new-audios');
 export const directoryJpgFrames = globalPath('jpg-frames');
 
 /* 0 = To reset/rewrite it globally */
-export const GLOBAL_PREFIX_IMAGES_NUM = 0;
+export const GLOBAL_PREFIX_IMAGES_NUM = 15;
