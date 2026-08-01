@@ -7,12 +7,21 @@ import { directoryVideos, directoryNewAudios } from '../config.js';
 
 const PREFIX_NAME_VIDEO = 'v';
 const START_VIDEO = 1;
-const END_VIDEO = 2;
+const END_VIDEO = 1;
 const AUDIO_FORMAT = 'mp3';
-const AUDIO_BITRATE = '192k';
+const AUDIO_BITRATE = '320k';
+const AUDIO_SAMPLE_RATE = 44100;
+const AUDIO_CHANNELS = 2;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);
+
+const checkFfmpeg = () =>
+  new Promise((res) => {
+    ffmpeg.getAvailableFormats((err) => {
+      res(!err);
+    });
+  });
 
 const arrayOfVideos = ({ start, end, ext = 'mp4' }) => {
   const total = Math.abs(end - start) + 1;
@@ -45,6 +54,8 @@ const extractAudio = (src, outPath) =>
     ffmpeg(src)
       .noVideo()
       .audioBitrate(AUDIO_BITRATE)
+      .audioFrequency(AUDIO_SAMPLE_RATE)
+      .audioChannels(AUDIO_CHANNELS)
       .format(AUDIO_FORMAT)
       .output(outPath)
       .on('end', () => {
@@ -54,12 +65,21 @@ const extractAudio = (src, outPath) =>
       })
       .on('error', err => {
         clearInterval(loader);
+        console.error(`\nError procesando ${path.basename(src)}:`, err.message);
         rej(err);
       })
       .run();
   });
 
 try {
+  const ffmpegOk = await checkFfmpeg();
+  if (!ffmpegOk) {
+    console.error('Error: ffmpeg no está disponible o no funciona correctamente.');
+    process.exit(1);
+  }
+
+  console.log(`Configuración: ${AUDIO_FORMAT.toUpperCase()} @ ${AUDIO_BITRATE} / ${AUDIO_SAMPLE_RATE}Hz / ${AUDIO_CHANNELS}ch`);
+
   await fs.mkdir(directoryNewAudios, { recursive: true });
 
   for (const video of VIDEOS) {
