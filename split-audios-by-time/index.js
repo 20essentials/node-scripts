@@ -7,11 +7,11 @@ import { directoryOldAudios, directoryNewAudios } from "../config.js";
 
 const PREFIX_NAME_AUDIO = "a";
 const START_AUDIO = 1;
-const END_AUDIO = 2; // <-- variable configurable
+const END_AUDIO = 1; // <-- variable configurable
 const EXT_AUDIO = "mp3";
 const OUTPUT = directoryNewAudios;
 const OFFSET = 0;
-const HALL = 60;
+const HALL = 29;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);

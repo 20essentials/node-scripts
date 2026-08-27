@@ -10,7 +10,7 @@ const END_VIDEO = 2;
 const EXT_VIDEO = 'mp4';
 const OUTPUT = directoryNewVideosOutput;
 const OFFSET = 0;
-const HALL = 13;
+const HALL = 8;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath.path);
