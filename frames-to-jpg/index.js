@@ -6,7 +6,7 @@ import { directoryFrames, directoryJpgFrames } from '../config.js';
 const inputFolder = directoryFrames;
 const outputFolder = directoryJpgFrames;
 const prefix = 'u';
-const QUALITY = 95;
+const QUALITY = 89;
 
 async function convertFramesToJpg() {
   await fs.mkdir(outputFolder, { recursive: true });
